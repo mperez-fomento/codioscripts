@@ -35,12 +35,18 @@ then
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-
+# Compile and then test
+if [ ! -f "compile.sh" ]
+then
+  printf "\n\n${red}ERROR: no encuentro el script para compilar, 'compile.sh'.\n\n${end}"
+  [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
+fi
+echo -e "\n\n=====================================\nCompiling the program...\n=====================================\n"
+source ./compile.sh
 if [ ! -f "test.sh" ]
 then
   printf "\n\n${red}ERROR: no encuentro el script para probar el programa, 'test.sh'.\n\n${end}"
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
-echo -e "\n\n=====================================\nCompiling the program...\n=====================================\n"
-source ./test.sh
 echo -e "\n\n=====================================\nRunning the tests...\n=====================================\n"
+source ./test.sh
