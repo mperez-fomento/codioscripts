@@ -24,7 +24,7 @@ username=$(yaml $HOME/.gitlabctl.yaml "['user']")
 # if argument given, cd into it. Otherwise, use current folder
 if [ ! -z $1 ]
 then
-  if ! cd $HOME/$1
+  if ! cd $HOME/workspace/$1
   then
     printf "\n\n${red}ERROR: la existe ningún repositorio local llamado $1.\n\n${end}"
     printf "${yel}Revisa si has escrito bien el nombre.\n"

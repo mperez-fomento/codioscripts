@@ -11,7 +11,7 @@ end=$'\e[0m'
 # if argument given, cd into it. Otherwise, use current folder
 if [ ! -z $1 ]
 then
-  if ! cd $HOME/$1
+  if ! cd $HOME/workspace/$1
   then
     printf "\n\n${red}ERROR: no existe ninguna práctica llamada $1.\n\n${end}"
     printf "${yel}Revisa si has escrito bien el nombre de la práctica.\n"
@@ -29,7 +29,7 @@ else
   reponame=$(basename $(git rev-parse --show-toplevel))
 fi
 
-if ! cd $HOME/$reponame
+if ! cd $HOME/workspace/$reponame
 then
   printf "\n\n${red}ERROR: No encuentro la práctica ${reponame} en tu ordenador${end}.\n\n"
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1

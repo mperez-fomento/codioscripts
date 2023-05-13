@@ -8,7 +8,7 @@ mag=$'\e[1;35m'
 cyn=$'\e[1;36m'
 end=$'\e[0m'
 
-cd $HOME
+cd $HOME/workspace
 
 # Check if there is an argument with the name of the lab.
 # If not, exit.
