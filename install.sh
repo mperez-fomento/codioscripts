@@ -6,6 +6,10 @@ cp runprogram /usr/local/bin/runprogram
 cp testprogram /usr/local/bin/testprogram
 cp compileprogram /usr/local/bin/compileprogram
 
+if ! grep -q 'alias startlab' $HOME/.bashrc
+then
+    echo "alias startlab='. startlab'" >> $HOME/.bashrc
+fi
 if ! grep -q 'alias rp' $HOME/.bashrc
 then
     echo "alias rp=runprogram" >> $HOME/.bashrc

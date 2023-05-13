@@ -20,10 +20,6 @@ then
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-gohome() {
-  cd $HOME/workspace/$1
-}
-
 printf "\n${yel}>> Enter gitlab username: ${end}\n"
 read -r username
 gitlabctl login -H https://gitlab.gototic.com -u $username
@@ -49,7 +45,7 @@ then
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-gohome
+cd $HOME/workspace/$1
 git config user.name "$username"
 git config user.email "$username@gototicmail.com"
 git remote remove origin
