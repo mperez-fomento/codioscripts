@@ -6,15 +6,15 @@ cp runprogram /usr/local/bin/runprogram
 cp testprogram /usr/local/bin/testprogram
 cp compileprogram /usr/local/bin/compileprogram
 
-if [ -z $(cat $HOME/.bashrc | grep "alias rp") ]
+if ! grep -q 'alias rp' $HOME/.bashrc
 then
     echo "alias rp=runprogram" >> $HOME/.bashrc
 fi
-if [ -z $(cat $HOME/.bashrc | grep "alias tp") ]
+if ! grep -q 'alias tp' $HOME/.bashrc
 then
     echo "alias tp=testprogram" >> $HOME/.bashrc
 fi
-if [ -z $(cat $HOME/.bashrc | grep "alias compile") ]
+if ! grep -q 'alias compile' $HOME/.bashrc
 then
     echo "alias compile=compileprogram" >> $HOME/.bashrc
 fi
