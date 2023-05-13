@@ -20,11 +20,9 @@ then
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-read -p "\n${yel}>> Enter gitlab username: ${end}\n" -r username
+printf "\n${yel}>> Enter gitlab username: ${end}\n"
+read -r username
 gitlabctl login -H https://gitlab.gototic.com -u $username
-
-git config user.name "$username"
-git config user.email "$username@gototicmail.com"
 
 # Check if there is already a folder with the lab's name,
 # and warn the user of data lost in case of proceeding.
@@ -48,6 +46,8 @@ then
 fi
 
 cd $1
+git config user.name "$username"
+git config user.email "$username@gototicmail.com"
 git remote remove origin
 
 # Create a new remote project if it doesn't exist, and add root as a member.
