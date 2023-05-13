@@ -45,9 +45,9 @@ source ./compile.sh
 
 if [ -z $? ]
 then
-  printf "\n\n${green}La compilación ha terminado con éxito.\n\n${end}"
-  printf "\n${blue}Ahora puedes ejecutar el programa escribiendo 'runprogram' (o 'rp') en la consola.\n${end}"
-  printf "${blue}También puedes probar el programa escribiendo 'testprogram' (o 'tp') en la consola.\n${end}"
+  printf "\n\n${grn}La compilación ha terminado con éxito.\n\n${end}"
+  printf "\n${blu}Ahora puedes ejecutar el programa escribiendo 'runprogram' (o 'rp') en la consola.\n${end}"
+  printf "${blu}También puedes probar el programa escribiendo 'testprogram' (o 'tp') en la consola.\n${end}"
   [[ $0 = $BASH_SOURCE ]] && exit 0 || return 0
 fi
 
