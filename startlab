@@ -20,27 +20,11 @@ then
   [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-[[ $USER =~ -(.*) ]]
-username=${BASH_REMATCH[1]}
+read -p "\n${yel}>> Enter gitlab username: ${end}\n" -r username
+gitlabctl login -H https://gitlab.gototic.com -u $username
 
-# Check if user.name and user.email are configured.
-# If not, set them.
-if [[ -z $(git config --global user.name) ]]
-then
-  git config --global user.name "$username"
-fi
-if [[ -z $(git config --global user.email) ]]
-then
-  git config --global user.email "$username@gototicmail.com"
-fi
-
-# Perform login if not previously done.
-if [ ! -f $HOME/.gitlabctl.yaml ]
-then
-  printf "\n\n${yel}Hemos detectado que es la primera vez que descargas una práctica.${end}\n"
-  printf "${yel}Se te pedirá la contraseña de tu usuario de gitlab...${end}\n\n"
-  gitlabctl login -H https://gitlab.gototic.com -u $username
-fi
+git config user.name "$username"
+git config user.email "$username@gototicmail.com"
 
 # Check if there is already a folder with the lab's name,
 # and warn the user of data lost in case of proceeding.
@@ -84,8 +68,8 @@ then
 fi
 
 printf "\n\n${grn}Ya tienes la práctica $1 descargada y puedes empezar a trabajar en ella.\n\n"
-printf "En Visual Studio Code, selecciona la opción 'Open folder', y elige la carpeta $HOME/$1\n"
+printf "Sigue las instrucciones de la guía.\n"
 printf "\n"
-printf "Para ejecutar el programa, en este terminal, escribe 'runprogram', o 'rp'.\n"
-printf "Para probar si el programa funciona como debería, escribe 'testprogram', o 'tp'.\n"
-printf "Cuando el programa funcione correctamente, ejecuta 'submitlab' en la consola para entregarlo.${end}\n"
+printf "Para ejecutar el programa, escribe 'runprogram' (o 'rp') en este terminal.\n"
+printf "Para probar si el programa funciona como debería, escribe 'testprogram' (o 'tp').\n"
+printf "Cuando el programa funcione correctamente, para entregarlo, ejecuta 'submitlab' en este terminal y pulsa 'Mark as completed' en la guía.${end}\n"

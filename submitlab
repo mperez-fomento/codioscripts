@@ -1,5 +1,10 @@
 #!/bin/bash
 
+yaml() {
+    python3 -c "import yaml;print(yaml.safe_load(open('$1'))$2)"
+}
+
+
 red=$'\e[1;31m'
 grn=$'\e[1;32m'
 yel=$'\e[1;33m'
@@ -8,8 +13,13 @@ mag=$'\e[1;35m'
 cyn=$'\e[1;36m'
 end=$'\e[0m'
 
-[[ $USER =~ -(.*) ]]
-username=${BASH_REMATCH[1]}
+if [ ! -f $HOME/.gitlabctl.yaml ]
+then
+  printf "\n\n${red}ERROR: todavía no has iniciado ninguna práctica: no hay nada que entregar.\n\n${end}"
+  [[ $0 = "$BASH_SOURCE" ]] && exit 1 || return 1
+fi
+
+username=$(yaml $HOME/.gitlabctl.yaml "['user']")
 
 # if argument given, cd into it. Otherwise, use current folder
 if [ ! -z $1 ]
@@ -32,23 +42,12 @@ fi
 
 reponame=$(basename $(git rev-parse --show-toplevel))
 
-# Check if user.name and user.email are configured.
+# Check if user.name and user.email are well configured.
 # If not, set them.
-if [[ -z $(git config --global user.name) ]]
+if [[ ! $username = $(git config user.name) ]]
 then
-  git config --global user.name "$username"
-fi
-if [[ -z $(git config --global user.email) ]]
-then
-  git config --global user.email "$username@gototicmail.com"
-fi
-
-# Perform login if not previously done.
-if [ ! -f $HOME/.gitlabctl.yaml ]
-then
-  printf "\n\n${yel}Hemos detectado que es la primera vez que te conectas a gitlab.${end}\n"
-  printf "${yel}Se te pedirá la contraseña de tu usuario de gitlab...${end}\n\n"
-  gitlabctl login -H https://gitlab.gototic.com -u $username
+  git config user.name "$username"
+  git config user.email "$username@gototicmail.com"
 fi
 
 # Check if repo is up-to-date
@@ -88,6 +87,7 @@ else
   if [[ "$(git push --porcelain)" == *"Done"* ]]
   then
     printf "\n${grn}Has entregado la práctica $reponame.${end}\n\n"
+    printf "${blu}Puedes ejecutar el programa entregado en https://$username.pages.gototic.com/$reponame\n${end}"
     printf "${blu}Puedes ver el código entregado en https://gitlab.gototic.com/$username/$reponame.git\n${end}"
     printf "${blu}Puedes volver a entregarla ejecutando submitlab $reponame en el terminal.\n"
   else
@@ -96,6 +96,3 @@ else
     printf "\nAsegúrate de haber escrito bien tu usuario y contraseña de gitlab.\n"
   fi
 fi
-
-
-
