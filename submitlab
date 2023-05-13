@@ -98,10 +98,10 @@ else
     printf "\n${grn}Has entregado la práctica $reponame.${end}\n\n"
     printf "${blu}Puedes ejecutar el programa entregado en https://$username.pages.gototic.com/$reponame\n${end}"
     printf "${blu}Puedes ver el código entregado en https://gitlab.gototic.com/$username/$reponame.git\n${end}"
-    printf "${blu}Puedes volver a entregarla ejecutando submitlab $reponame en el terminal.\n"
+    printf "${blu}Puedes volver a entregarla ejecutando submitlab $reponame en el terminal.\n${end}"
   else
     printf "${red}ERROR: La práctica $reponame no ha sido entregada.${end}\n\n"
     printf "\n${yel}Ha habido problemas al entregar la práctica $reponame.\n"
-    printf "\nAsegúrate de haber escrito bien tu usuario y contraseña de gitlab.\n"
+    printf "\nAsegúrate de haber escrito bien tu usuario y contraseña de gitlab.\n${end}"
   fi
 fi
